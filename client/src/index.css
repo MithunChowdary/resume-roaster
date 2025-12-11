@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+:root {
+  font-family: 'Outfit', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* Theme Variables - Default Dark */
+  --bg-gradient-start: #2e0f0f;
+  --bg-gradient-end: #050000;
+  --text-main: rgba(255, 255, 255, 0.87);
+  --text-muted: #9ca3af;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: rgba(0, 0, 0, 0.1);
+  --btn-glass: rgba(255, 255, 255, 0.05);
+  --btn-glass-hover: rgba(255, 255, 255, 0.1);
+  --tape-bg: #FFD700;
+  --tape-text: #000000;
+
+  color-scheme: dark;
+  color: var(--text-main);
+  background-color: var(--bg-gradient-end);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root[data-theme='light'] {
+  --bg-gradient-start: #ffe4e6;
+  /* Rose 100 */
+  --bg-gradient-end: #ffffff;
+  --text-main: #1f2937;
+  /* Gray 800 */
+  --text-muted: #4b5563;
+  /* Gray 600 */
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --glass-shadow: rgba(0, 0, 0, 0.05);
+  --btn-glass: rgba(0, 0, 0, 0.03);
+  --btn-glass-hover: rgba(0, 0, 0, 0.06);
+  --tape-bg: #FDE047;
+  /* Yellow 300 */
+  --tape-text: #000000;
+
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background: radial-gradient(circle at top center, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+  overflow-x: hidden;
+  color: var(--text-main);
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+#root {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Custom Premium Utilities with CSS Variables */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 30px var(--glass-shadow);
+  transition: all 0.3s ease;
+}
+
+.glass-btn {
+  background: var(--btn-glass);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+  color: var(--text-main);
+}
+
+.glass-btn:hover {
+  background: var(--btn-glass-hover);
+  border-color: rgba(220, 38, 38, 0.3);
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.3);
+}
+
+.neon-text {
+  /* Red Neon Text */
+  text-shadow: 0 0 10px rgba(220, 38, 38, 0.5), 0 0 20px rgba(220, 38, 38, 0.3);
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Marquee Animation for Caution Tape */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 100s linear infinite;
+}
