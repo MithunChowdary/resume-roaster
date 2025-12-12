@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, Flame, FileText, CheckCircle, AlertTriangle, X, Hash, Skull, Moon, Sun } from 'lucide-react';
 
