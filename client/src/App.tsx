@@ -123,13 +123,23 @@ export default function App() {
         setTheme(prev => prev === 'dark' ? 'light' : 'dark');
     };
 
+    const API_BASE = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:3000' : '');
+
+    const fetchStats = async () => {
+        try {
+            const res = await fetch(`${API_BASE}/api/stats?t=${Date.now()}`);
+            const data = await res.json();
+            if (data.totalProcessed !== undefined) {
+                setTotalProcessed(data.totalProcessed);
+            }
+        } catch (error) {
+            console.error("Error fetching stats:", error);
+        }
+    };
+
     // Fetch stats on mount
     useEffect(() => {
-        const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-        fetch(`${API_BASE}/api/stats`)
-            .then(res => res.json())
-            .then(data => setTotalProcessed(data.totalProcessed || 0))
-            .catch(console.error);
+        fetchStats();
     }, []);
 
     // Scroll to results when ready
@@ -161,7 +171,6 @@ export default function App() {
         const formData = new FormData();
         formData.append('resume', file);
 
-        const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000';
         const endpoint = selectedMode === 'roast' ? `${API_BASE}/api/roast` : `${API_BASE}/api/ats-check`;
 
         try {
@@ -172,8 +181,8 @@ export default function App() {
             const data = await res.json();
             console.log("App.tsx received data:", data);
             setResult(data);
-            // Update counter locally to reflect success immediately
-            if (!data.error) setTotalProcessed(prev => prev + 1);
+            // Refresh stats from server to show updated count
+            if (!data.error) fetchStats();
         } catch (error) {
             console.error(error);
             alert('Something went wrong! Check console.');

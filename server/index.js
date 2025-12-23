@@ -41,6 +41,7 @@ const Roast = mongoose.model('Roast', RoastSchema);
 app.get('/api/stats', async (req, res) => {
     try {
         const count = await Roast.countDocuments();
+        res.setHeader('Cache-Control', 'no-store');
         res.json({ totalProcessed: count });
     } catch (e) {
         console.error("Stats Error:", e);
@@ -144,7 +145,7 @@ app.post('/api/roast', upload.single('resume'), async (req, res) => {
             resumeTextLength: resumeText.length,
             roastData: jsonResponse
         });
-        
+
         console.log("[ROAST] Success! Saved to DB.");
         res.json(jsonResponse);
 
